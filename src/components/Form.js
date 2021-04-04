@@ -51,6 +51,7 @@ export default class Form extends Component {
     // persist the comments on server
     let { comment } = this.state;
     fetch("http://localhost:1337/comments", {
+      headers:{'Content-type':'application/json'},
       method: "post",
       body: JSON.stringify(comment)
     })
@@ -60,10 +61,8 @@ export default class Form extends Component {
           this.setState({ loading: false, error: res.error });
         } else {
         
-          comment.time = res.time;
           this.props.addComment(comment);
 
-        
           this.setState({
             loading: false,
             comment: { ...comment, description: "" }
@@ -76,6 +75,8 @@ export default class Form extends Component {
           loading: false
         });
       });
+      console.log(JSON.stringify(comment))
+      
   }
 
   /**
